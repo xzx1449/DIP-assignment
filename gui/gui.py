@@ -94,7 +94,7 @@ class DIPGUI(QMainWindow,Ui_MainWindow):
             c.setChecked(False)
             cname = c.objectName()
             para_list = []
-            for i in range(5):
+            for i in range(6):
                 p = self.findChild(QtWidgets.QDoubleSpinBox,'para'+cname[6:]+str(i+1))
                 if p is not None:
                     para_list.append(p.value())
@@ -103,8 +103,12 @@ class DIPGUI(QMainWindow,Ui_MainWindow):
                 if p is not None:
                     para_list.append(p.value())
             img = copy.copy(self.imageList[-1])
-            result = fun[int(cname[6])][int(cname[7])](img,para_list)
-            self.imageList.append(result)
+            result = fun[int(cname[6])-1][int(cname[7])-1](img,para_list)
+            if(isinstance(result,list)):
+                self.imageList.append(result[0])
+                self.updateHisto(result[1])
+            else:
+                self.imageList.append(result)
             self.updateFigure(-1)
             self.progressBar.setValue(100)
         else:
@@ -113,14 +117,15 @@ class DIPGUI(QMainWindow,Ui_MainWindow):
     def showExample(self):
         if len(self.imageList)>0:
             a = self.findChild(QtWidgets.QDoubleSpinBox,'para000')
-            b = self.findChild(QtWidgets.QDoubleSpinBox,'para111')
             img = copy.copy(self.imageList[-1])
             r = fun[-1][0](img,[a.value()])
             self.imageList.append(r)
             self.updateFigure(-1)
-        # QMessageBox.information(self, "Info", '返回值：'+str(r))
         else:
             QMessageBox.information(self, "Info", '请先打开图片')
+
+    def updateHisto(self,img):
+        pass
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

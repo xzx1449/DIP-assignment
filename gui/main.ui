@@ -37,7 +37,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab0">
      <attribute name="title">
@@ -206,7 +206,7 @@
       <property name="geometry">
        <rect>
         <x>40</x>
-        <y>170</y>
+        <y>160</y>
         <width>341</width>
         <height>22</height>
        </rect>
@@ -225,7 +225,7 @@
       <property name="geometry">
        <rect>
         <x>40</x>
-        <y>210</y>
+        <y>200</y>
         <width>341</width>
         <height>22</height>
        </rect>
@@ -309,25 +309,43 @@
         <height>22</height>
        </rect>
       </property>
+      <property name="minimum">
+       <double>-5.000000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>5.000000000000000</double>
+      </property>
      </widget>
      <widget class="QDoubleSpinBox" name="para242">
       <property name="geometry">
        <rect>
-        <x>150</x>
+        <x>170</x>
         <y>330</y>
         <width>62</width>
         <height>22</height>
        </rect>
       </property>
+      <property name="minimum">
+       <double>-5.000000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>5.000000000000000</double>
+      </property>
      </widget>
-     <widget class="QDoubleSpinBox" name="para252">
+     <widget class="QDoubleSpinBox" name="para253">
       <property name="geometry">
        <rect>
-        <x>150</x>
+        <x>170</x>
         <y>400</y>
         <width>62</width>
         <height>22</height>
        </rect>
+      </property>
+      <property name="minimum">
+       <double>-5.000000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>5.000000000000000</double>
       </property>
      </widget>
      <widget class="QDoubleSpinBox" name="para251">
@@ -339,25 +357,321 @@
         <height>22</height>
        </rect>
       </property>
+      <property name="minimum">
+       <double>-20.000000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>20.000000000000000</double>
+      </property>
      </widget>
-     <widget class="QDoubleSpinBox" name="para253">
+     <widget class="QDoubleSpinBox" name="para255">
       <property name="geometry">
        <rect>
-        <x>240</x>
+        <x>280</x>
         <y>400</y>
         <width>62</width>
         <height>22</height>
        </rect>
       </property>
+      <property name="minimum">
+       <double>-5.000000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>5.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="para252">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>440</y>
+        <width>62</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="maximum">
+       <double>20.000000000000000</double>
+      </property>
      </widget>
      <widget class="QDoubleSpinBox" name="para254">
       <property name="geometry">
        <rect>
-        <x>330</x>
-        <y>400</y>
+        <x>170</x>
+        <y>440</y>
         <width>62</width>
         <height>22</height>
        </rect>
+      </property>
+      <property name="maximum">
+       <double>5.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="para256">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>440</y>
+        <width>62</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="minimum">
+       <double>-5.000000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>5.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>400</y>
+        <width>21</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>tx</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>440</y>
+        <width>21</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>ty</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_3">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>400</y>
+        <width>21</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>sx</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_4">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>440</y>
+        <width>21</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>sy</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_5">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>400</y>
+        <width>21</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>mx</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_6">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>440</y>
+        <width>21</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>my</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_7">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>330</y>
+        <width>21</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>mx</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_8">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>330</y>
+        <width>21</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>my</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_9">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>260</y>
+        <width>31</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>-360°</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_10">
+      <property name="geometry">
+       <rect>
+        <x>380</x>
+        <y>260</y>
+        <width>31</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>+360°</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_11">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>160</y>
+        <width>31</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>水平</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_12">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>190</y>
+        <width>31</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>竖直</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_13">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>60</y>
+        <width>31</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>水平</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_14">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>90</y>
+        <width>31</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>竖直</string>
       </property>
      </widget>
     </widget>
@@ -969,7 +1283,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>例子</string>
+     <string>样例按钮</string>
     </property>
    </widget>
    <widget class="QDoubleSpinBox" name="para000">
@@ -988,7 +1302,7 @@
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="choiceButtonGroup"/>
   <buttongroup name="cmpbuttonGroup"/>
+  <buttongroup name="choiceButtonGroup"/>
  </buttongroups>
 </ui>
