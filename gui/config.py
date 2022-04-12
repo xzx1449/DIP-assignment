@@ -1,4 +1,6 @@
+import imp
 from function.example import hello
+from function.geometryTrans import *
 
 fun = [
     #图像处理函数列表,函数名任意。GUI通过此列表的顺序访问功能函数，如：
@@ -8,7 +10,7 @@ fun = [
     #灰度图
     [],#填入两个函数，均衡灰度直方图，灰度图增强
     #几何变换
-    [],
+    [scale, translate, rotate, miscut, affine],
     #添加噪声
     [],
     #滤波变换
