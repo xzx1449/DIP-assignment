@@ -26,7 +26,7 @@ def transform(img, T, sx, sy):
             pos_new = np.array([[i], [j], [1]])
             pos_old = np.dot(invT, pos_new)
             if pos_old[0][0] >= 0 and pos_old[0][0] < rows and pos_old[1][0] >= 0 and pos_old[1][0] < cols:
-                img_result[i, j, :] = img[int(pos_old[0][0]), int(pos_old[1][0]), :]
+                img_result[i, j, :] = img[int(pos_old[0][0]), int(pos_old[1][0]), :] / 255
     return img_result
 
 # 1.平移(tx,ty)
@@ -59,8 +59,8 @@ def scale(img, par):
 
 # 4.错切
 def miscut(img, par):
-    mx = int(par[0]/20)
-    my = int(par[1]/20)
+    mx = par[0]/20
+    my = par[1]/20
     T = np.array([[1,my,0],
 				  [mx,1,0],
 				  [0,0,1]])
@@ -72,8 +72,8 @@ def affine(img, par):
     ty=int(par[1])
     sx=(par[2]+100)/100
     sy=(par[3]+100)/100
-    mx=int(par[4]/20)
-    my=int(par[5]/20)
+    mx=par[4]/50
+    my=par[5]/50
     T = np.array([[sy,my,ty],
 				  [mx,sx,tx],
 				  [0,0,1]])
