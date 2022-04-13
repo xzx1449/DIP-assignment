@@ -76,7 +76,7 @@
       <property name="geometry">
        <rect>
         <x>70</x>
-        <y>370</y>
+        <y>350</y>
         <width>111</width>
         <height>31</height>
        </rect>
@@ -88,24 +88,36 @@
        <string notr="true">choiceButtonGroup</string>
       </attribute>
      </widget>
-     <widget class="QDoubleSpinBox" name="para111">
+     <widget class="QDoubleSpinBox" name="para121">
       <property name="geometry">
        <rect>
-        <x>90</x>
-        <y>340</y>
+        <x>110</x>
+        <y>400</y>
         <width>62</width>
         <height>22</height>
        </rect>
       </property>
+      <property name="maximum">
+       <double>2.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.200000000000000</double>
+      </property>
+      <property name="value">
+       <double>1.000000000000000</double>
+      </property>
      </widget>
-     <widget class="QDoubleSpinBox" name="para121">
+     <widget class="QLabel" name="label_15">
       <property name="geometry">
        <rect>
-        <x>90</x>
-        <y>410</y>
-        <width>62</width>
-        <height>22</height>
+        <x>80</x>
+        <y>400</y>
+        <width>31</width>
+        <height>16</height>
        </rect>
+      </property>
+      <property name="text">
+       <string>参数</string>
       </property>
      </widget>
     </widget>

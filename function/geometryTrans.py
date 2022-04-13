@@ -26,7 +26,7 @@ def transform(img, T, sx, sy):
             pos_new = np.array([[i], [j], [1]])
             pos_old = np.dot(invT, pos_new)
             if pos_old[0][0] >= 0 and pos_old[0][0] < rows and pos_old[1][0] >= 0 and pos_old[1][0] < cols:
-                img_result[i, j, :] = img[int(pos_old[0][0]), int(pos_old[1][0]), :] / 255
+                img_result[i, j, :] = img[int(pos_old[0][0]), int(pos_old[1][0]), :]
     return img_result
 
 # 1.平移(tx,ty)
