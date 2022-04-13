@@ -13,11 +13,8 @@ class DIPGUI(QMainWindow,Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-
         self.imageList = []
         self.imageShape = None
-        self.setting_signals = pyqtSignal(dict)
-
         self.exampleButton.clicked.connect(self.showExample)
         self.para000.setValue(2.13)
         self.openButton.clicked.connect(self.openfile)
@@ -30,6 +27,9 @@ class DIPGUI(QMainWindow,Ui_MainWindow):
         self.scene = QGraphicsScene()
         self.graphicsView.setScene(self.scene)
         self.graphicsView.show()
+        self.histoScene = QGraphicsScene()
+        self.grayHistoView.setScene(self.histoScene)
+        self.grayHistoView.show()
         self.cmpLast.setCheckable(False)
 
     def updateFigure(self,n):
@@ -41,6 +41,12 @@ class DIPGUI(QMainWindow,Ui_MainWindow):
             if x<600 or y<600:
                 pixmap = pixmap.scaled(720,540)
             self.scene.addPixmap(pixmap)
+            histo = fun[0][2](self.imageList[n])
+            y,x = histo.shape[:-1]
+            histoframe = QImage(histo, x, y, QImage.Format_RGB888)
+            pixmap_histo = QPixmap.fromImage(histoframe)
+            pixmap_histo = pixmap_histo.scaled(312,234)
+            self.histoScene.addPixmap(pixmap_histo)
             
     def showcmp(self):
         if len(self.imageList)>1:
@@ -104,11 +110,9 @@ class DIPGUI(QMainWindow,Ui_MainWindow):
                     para_list.append(p.value())
             img = copy.copy(self.imageList[-1])
             result = fun[int(cname[6])-1][int(cname[7])-1](img,para_list)
-            if(isinstance(result,list)):
-                self.imageList.append(result[0])
-                self.updateHisto(result[1])
-            else:
-                self.imageList.append(result)
+            if result.dtype == 'float64':
+                result = result.astype('uint8')
+            self.imageList.append(result)
             self.updateFigure(-1)
             self.progressBar.setValue(100)
         else:
