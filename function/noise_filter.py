@@ -50,12 +50,12 @@ def pulse_noise(img, pa, pb, va, vb):
     return img
 
 
-def salt_pepper(img, **kwargs):
+def salt_pepper(img, arg):
     """
     椒盐噪声
     snr : 信噪比
     """
-    snr = kwargs['snr']
+    snr = float(arg[0])
     prob = 1 - snr
     # opencv extend 1 dim to 3 dim
     img = pulse_noise(img, prob / 2, prob / 2,
@@ -64,14 +64,14 @@ def salt_pepper(img, **kwargs):
     return img
 
 
-def random_noise(img, **kwargs):
+def random_noise(img, arg):
     """
     随机噪声
     :param img:
     :param snr: 信噪比
     :return:
     """
-    snr = kwargs['snr']
+    snr = float(arg[0])
     prob = 1 - snr
     # opencv extend 1 dim to 3 dim
     img = pulse_noise(img, 0, prob,
@@ -80,7 +80,7 @@ def random_noise(img, **kwargs):
     return img
 
 
-def gaussian_noise(img, **kwargs):
+def gaussian_noise(img, arg):
     """
     高斯噪声
     :param img: 输入图像
@@ -89,8 +89,8 @@ def gaussian_noise(img, **kwargs):
     :return: 高斯噪声加噪结果
     """
     # check
-    miu = kwargs['miu']
-    sigma = kwargs['sigma']
+    miu = float(arg[0])
+    sigma = float(arg[1])
     if isinstance(miu, float):
         miu = (miu, miu, miu)
     if isinstance(sigma, float):
@@ -103,40 +103,51 @@ def gaussian_noise(img, **kwargs):
     return img
 
 
-def smooth(img, **kwargs):
+def smooth(img, arg):
     """
     线性平滑滤波
     :param img:
     :param size: tuple(size=2)  Kernel size
     :return:
     """
-    size = kwargs['size']
+    size = (int(arg[0]), int(arg[1]))
     return cv.blur(img, size)
 
 
-def sharpen_filter(img, **kwargs):
+def sharpen_filter(img, arg):
     """
     线性锐化滤波
     :param img:
+    :param t: 1 2 3 三种不同的线性锐化滤波
     :return: sharpened img
     """
-    kernel = np.array([
-        [0, -1, 0],
-        [-1, 5, -1],
-        [0, -1, 0]])
-    if 'kernel' in kwargs:
-        kernel = kwargs['kernel']
+    t = int(arg[0])
+    if t == 1:
+        kernel = np.array([
+            [0, -1, 0],
+            [-1, 5, -1],
+            [0, -1, 0]])
+    elif t == 2:
+        kernel = np.array([
+            [-1, 0, -1],
+            [0, 5, 0],
+            [-1, 0, -1]])
+    else:
+        kernel = np.array([
+            [-1, -1, -1],
+            [-1, 9, -1],
+            [-1, -1, -1]])
     return cv.filter2D(img, -1, kernel)
 
 
-def median_filter(img, **kwargs):
+def median_filter(img, arg):
     """
     中值滤波
     :param img:
     :param size: 滤波器大小 int
     :return:
     """
-    size = kwargs['size']
+    size = int(arg[0])
     return cv.medianBlur(img, size)
 
 
@@ -160,14 +171,14 @@ def frequency_filter(img_c, mask):
     return image_filtered
 
 
-def low_pass_filter(img, **kwargs):
+def low_pass_filter(img, arg):
     """
     低通滤波器
     :param img: 输入图像
     :param radius: 通过半径
     :return: 滤波后图像
     """
-    radius = kwargs['radius']
+    radius = int(arg[0])
     # size
     h, w = img.shape[:2]
     # mask
@@ -183,7 +194,7 @@ def low_pass_filter(img, **kwargs):
     return res
 
 
-def high_pass_filter(img, **kwargs):
+def high_pass_filter(img, arg):
     """
     高通滤波器
     :param img: 输入图像
@@ -192,9 +203,9 @@ def high_pass_filter(img, **kwargs):
     :return: 滤波后图像
     """
     n = 1
-    radius = kwargs['radius']
-    if 'n' in kwargs:
-        n = kwargs['n']
+    radius = int(arg[0])
+    if len(arg) > 1:
+        n = int(arg[1])
     # size
     h, w = img.shape[:2]
     # mask
@@ -217,7 +228,7 @@ def high_pass_filter(img, **kwargs):
     return res
 
 
-def bandpass_filter(img, **kwargs):
+def bandpass_filter(img, arg):
     """
     带通滤波器
     :param img: 输入图像
@@ -225,8 +236,8 @@ def bandpass_filter(img, **kwargs):
     :param f: 通过频率中心
     :return: 滤波后图像
     """
-    radius = kwargs['radius']
-    f = kwargs['f']
+    radius = int(arg[0])
+    f = int(arg[1])
     # size
     h, w = img.shape[:2]
     # mask
@@ -248,7 +259,7 @@ def bandpass_filter(img, **kwargs):
     return res
 
 
-def bandstop_filter(img, **kwargs):
+def bandstop_filter(img, arg):
     """
     带阻滤波器
     :param img: 输入图像
@@ -256,8 +267,8 @@ def bandstop_filter(img, **kwargs):
     :param f: 阻断频率中心
     :return: 滤波后图像
     """
-    radius = kwargs['radius']
-    f = kwargs['f']
+    radius = int(arg[0])
+    f = int(arg[1])
     # size
     h, w = img.shape[:2]
     # mask
@@ -279,40 +290,44 @@ def bandstop_filter(img, **kwargs):
     return res
 
 
-# img_pa = "../input.png"
-#
-# args = {'snr': 0.8}
-# imgO = salt_pepper(img=load_in_img(img_pa), **args)
-# plt_in_cv(imgO, "salt pepper noise img")
-#
-# args = {'size': (5, 5)}
-# img_s = smooth(imgO, **args)
-# plt_in_cv(img_s, "smoothed")
-#
-# args = {'size': 5}
-# img_m = median_filter(imgO, **args)
-# plt_in_cv(img_m, "medianed")
-#
-# args = {'radius': 30, 'f': 60}
-# img_bp = bandpass_filter(imgO, **args)
-# plt_in_cv(img_bp, "bandpass")
-#
-# args = {'radius': 30, 'f': 60}
-# img_bs = bandstop_filter(imgO, **args)
-# plt_in_cv(img_bs, "bandstop")
-#
-# args = {'radius': 200}
-# img_lp = low_pass_filter(load_in_img(img_pa), **args)
-# plt_in_cv(img_lp, "lowpass")
+# img_pa = "./input.png"
 # #
-# args = {'radius': 200}
-# img_hp = high_pass_filter(load_in_img(img_pa), **args)
+# args = [0.8]
+# imgO = salt_pepper(load_in_img(img_pa), args)
+# plt_in_cv(imgO, "salt pepper noise img")
+# #
+# args = [5, 5]
+# img_s = smooth(imgO, args)
+# plt_in_cv(img_s, "smoothed")
+# #
+# args = [5]
+# img_m = median_filter(imgO, args)
+# plt_in_cv(img_m, "medianed")
+# #
+# args = [30, 60]
+# img_bp = bandpass_filter(imgO, args)
+# plt_in_cv(img_bp, "bandpass")
+# #
+# args = [30, 60]
+# img_bs = bandstop_filter(imgO, args)
+# plt_in_cv(img_bs, "bandstop")
+# #
+# args = [200]
+# img_lp = low_pass_filter(load_in_img(img_pa), args)
+# plt_in_cv(img_lp, "lowpass")
+# # #
+# args = [200]
+# img_hp = high_pass_filter(load_in_img(img_pa), args)
 # plt_in_cv(img_hp, "highpass")
-#
-# args = {'miu': 40.0, 'sigma': 25.0}
-# plt_in_cv(gaussian_noise(img=load_in_img(img_pa), **args),
-#           "Gaussian noise img")
-#
-# args = {'snr': 0.8}
-# plt_in_cv(random_noise(img=load_in_img(img_pa), **args),
+# #
+# args = [40.0, 25.0]
+# plt_in_cv(gaussian_noise(load_in_img(img_pa), args),
+#            "Gaussian noise img")
+# #
+# args = [0.8]
+# plt_in_cv(random_noise(load_in_img(img_pa), args),
 #           "Random noise img")
+#
+# args = [1]
+# plt_in_cv(sharpen_filter(imgO, args),
+#           "sharpen")
