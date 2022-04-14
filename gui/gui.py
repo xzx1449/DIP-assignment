@@ -15,8 +15,8 @@ class DIPGUI(QMainWindow,Ui_MainWindow):
         self.setupUi(self)
         self.imageList = []
         self.imageShape = None
-        self.exampleButton.clicked.connect(self.showExample)
-        self.para000.setValue(2.13)
+        # self.exampleButton.clicked.connect(self.showExample)
+        # self.para000.setValue(2.13)
         self.openButton.clicked.connect(self.openfile)
         self.saveButton.clicked.connect(self.savefile)
         self.cmpButton.pressed.connect(self.showcmp)
@@ -41,12 +41,13 @@ class DIPGUI(QMainWindow,Ui_MainWindow):
             if x<600 or y<600:
                 pixmap = pixmap.scaled(720,540)
             self.scene.addPixmap(pixmap)
-            histo = fun[0][2](self.imageList[n])
-            y,x = histo.shape[:-1]
-            histoframe = QImage(histo, x, y, QImage.Format_RGB888)
-            pixmap_histo = QPixmap.fromImage(histoframe)
-            pixmap_histo = pixmap_histo.scaled(312,234)
-            self.histoScene.addPixmap(pixmap_histo)
+            if self.histoButton.isChecked():
+                histo = fun[0][2](self.imageList[n])
+                y,x = histo.shape[:-1]
+                histoframe = QImage(histo, x, y, QImage.Format_RGB888)
+                pixmap_histo = QPixmap.fromImage(histoframe)
+                pixmap_histo = pixmap_histo.scaled(312,234)
+                self.histoScene.addPixmap(pixmap_histo)
             
     def showcmp(self):
         if len(self.imageList)>1:
@@ -65,7 +66,7 @@ class DIPGUI(QMainWindow,Ui_MainWindow):
     def openfile(self):
         self.imageList = []
         print("load file")
-        fname, _ = QFileDialog.getOpenFileName(self, '选择图片','./', 'Image files(*.jpg *.gif *.png)')
+        fname, _ = QFileDialog.getOpenFileName(self, '选择图片','./', 'Image files(*.jpg)')
         if fname:
             img = cv2.imread(fname)
             img = cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
@@ -106,8 +107,12 @@ class DIPGUI(QMainWindow,Ui_MainWindow):
                     para_list.append(p.value())
                 else:
                     p = self.findChild(QtWidgets.QSlider,'para'+cname[6:]+str(i+1))
-                if p is not None:
-                    para_list.append(p.value())
+                    if p is not None:
+                        para_list.append(p.value())
+                    else:
+                        p = self.findChild(QtWidgets.QSpinBox,'para'+cname[6:]+str(i+1))
+                        if p is not None:
+                            para_list.append(p.value())
             img = copy.copy(self.imageList[-1])
             result = fun[int(cname[6])-1][int(cname[7])-1](img,para_list)
             if result.dtype == 'float64':
@@ -118,15 +123,15 @@ class DIPGUI(QMainWindow,Ui_MainWindow):
         else:
             QMessageBox.information(self, "Info", '请先打开图片')
 
-    def showExample(self):
-        if len(self.imageList)>0:
-            a = self.findChild(QtWidgets.QDoubleSpinBox,'para000')
-            img = copy.copy(self.imageList[-1])
-            r = fun[-1][0](img,[a.value()])
-            self.imageList.append(r)
-            self.updateFigure(-1)
-        else:
-            QMessageBox.information(self, "Info", '请先打开图片')
+    # def showExample(self):
+    #     if len(self.imageList)>0:
+    #         a = self.findChild(QtWidgets.QDoubleSpinBox,'para000')
+    #         img = copy.copy(self.imageList[-1])
+    #         r = fun[-1][0](img,[a.value()])
+    #         self.imageList.append(r)
+    #         self.updateFigure(-1)
+    #     else:
+    #         QMessageBox.information(self, "Info", '请先打开图片')
 
     def updateHisto(self,img):
         pass
