@@ -13,6 +13,7 @@ presented by LiHaoYu
     6.带通滤波     bandpass_filter
     7.带阻滤波     bandstop_filter
 """
+import cv2
 import cv2 as cv
 import numpy as np
 import math
@@ -191,6 +192,9 @@ def low_pass_filter(img, arg):
     Gr = frequency_filter(G, mask)
     Rr = frequency_filter(R, mask)
     res = cv.merge([Br, Gr, Rr])
+    res = (res - res.min())/(res.max() - res.min()) * 255
+    res = res.astype('uint8')
+    res = cv2.cvtColor(res, cv2.COLOR_BGR2RGB)
     return res
 
 
@@ -225,6 +229,10 @@ def high_pass_filter(img, arg):
     Gr = frequency_filter(G, mask)
     Rr = frequency_filter(R, mask)
     res = cv.merge([Br, Gr, Rr])
+    res = (res - res.min())/(res.max() - res.min()) * 255
+    res = res.astype('uint8')
+
+    res = cv2.cvtColor(res, cv2.COLOR_BGR2RGB)
     return res
 
 
@@ -256,6 +264,9 @@ def bandpass_filter(img, arg):
     Gr = frequency_filter(G, mask)
     Rr = frequency_filter(R, mask)
     res = cv.merge([Br, Gr, Rr])
+    res = (res - res.min())/(res.max() - res.min()) * 255
+    res = res.astype('uint8')
+    res = cv2.cvtColor(res, cv2.COLOR_BGR2RGB)
     return res
 
 
@@ -287,47 +298,50 @@ def bandstop_filter(img, arg):
     Gr = frequency_filter(G, mask)
     Rr = frequency_filter(R, mask)
     res = cv.merge([Br, Gr, Rr])
+    res = (res - res.min())/(res.max() - res.min()) * 255
+    res = res.astype('uint8')
+    res = cv2.cvtColor(res,cv2.COLOR_BGR2RGB)
     return res
 
+'''
+img_pa = "./1.png"
+args = [0.8]
+imgO = salt_pepper(load_in_img(img_pa), args)
+plt_in_cv(imgO, "salt pepper noise img")
 
-# img_pa = "./input.png"
+args = [5, 5]
+img_s = smooth(imgO, args)
+plt_in_cv(img_s, "smoothed")
+
+args = [5]
+img_m = median_filter(imgO, args)
+plt_in_cv(img_m, "medianed")
+
+args = [30, 60]
+img_bp = bandpass_filter(imgO, args)
+plt_in_cv(img_bp, "bandpass")
+
+args = [30, 60]
+img_bs = bandstop_filter(imgO, args)
+plt_in_cv(img_bs, "bandstop")
 # #
-# args = [0.8]
-# imgO = salt_pepper(load_in_img(img_pa), args)
-# plt_in_cv(imgO, "salt pepper noise img")
-# #
-# args = [5, 5]
-# img_s = smooth(imgO, args)
-# plt_in_cv(img_s, "smoothed")
-# #
-# args = [5]
-# img_m = median_filter(imgO, args)
-# plt_in_cv(img_m, "medianed")
-# #
-# args = [30, 60]
-# img_bp = bandpass_filter(imgO, args)
-# plt_in_cv(img_bp, "bandpass")
-# #
-# args = [30, 60]
-# img_bs = bandstop_filter(imgO, args)
-# plt_in_cv(img_bs, "bandstop")
-# #
-# args = [200]
-# img_lp = low_pass_filter(load_in_img(img_pa), args)
-# plt_in_cv(img_lp, "lowpass")
+args = [200]
+img_lp = low_pass_filter(load_in_img(img_pa), args)
+plt_in_cv(img_lp, "lowpass")
 # # #
-# args = [200]
-# img_hp = high_pass_filter(load_in_img(img_pa), args)
-# plt_in_cv(img_hp, "highpass")
+args = [200]
+img_hp = high_pass_filter(load_in_img(img_pa), args)
+plt_in_cv(img_hp, "highpass")
 # #
-# args = [40.0, 25.0]
-# plt_in_cv(gaussian_noise(load_in_img(img_pa), args),
-#            "Gaussian noise img")
+args = [40.0, 25.0]
+plt_in_cv(gaussian_noise(load_in_img(img_pa), args),
+            "Gaussian noise img")
 # #
-# args = [0.8]
-# plt_in_cv(random_noise(load_in_img(img_pa), args),
-#           "Random noise img")
+args = [0.8]
+plt_in_cv(random_noise(load_in_img(img_pa), args),
+           "Random noise img")
 #
-# args = [1]
-# plt_in_cv(sharpen_filter(imgO, args),
-#           "sharpen")
+args = [1]
+plt_in_cv(sharpen_filter(imgO, args),
+          "sharpen")
+'''
